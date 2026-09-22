@@ -1,3 +1,6 @@
+<img width="1774" height="887" alt="ChatGPT Image Sep 22, 2026, 10_52_55 AM" src="https://github.com/user-attachments/assets/0665e380-164d-45cd-9f22-2316f24e661b" />
+
+
 # Rotating Detonation Engine — Reproducible OpenFOAM Cases
 
 Open, executable 2-D Rotating Detonation Engine (RDE) cases used to generate the [RDE-72 spatiotemporal dataset](https://huggingface.co/datasets/SM-Bello/rde-72-dataset).
