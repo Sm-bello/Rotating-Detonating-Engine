@@ -1,0 +1,26 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      chemistryProperties;
+}
+
+chemistryType
+{
+    solver      ode;
+    method      StandardChemistryModel;
+    // If you see 'StandardChemistryModel' not found → change to: standard
+}
+
+chemistry               on;
+initialChemicalTimeStep 1e-07;
+
+odeCoeffs
+{
+    solver  seulex;       // semi-implicit stiff solver — ideal for detonation
+    absTol  1e-12;
+    relTol  1e-01;
+}
+

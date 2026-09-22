@@ -1,0 +1,12 @@
+FoamFile { format ascii; class dictionary; location "constant"; object thermophysicalProperties; }
+
+thermoType
+{
+    type            hePsiThermo;
+    mixture         multiComponentMixture;
+    transport       sutherland;
+    thermo          janaf;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}

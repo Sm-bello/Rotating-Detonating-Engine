@@ -1,0 +1,5 @@
+type            residuals;
+libs            ("libutilityFunctionObjects.so");
+writeControl    timeStep;
+writeInterval   20;
+fields          (p rho);

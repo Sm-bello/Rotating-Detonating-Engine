@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  11                                    |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      chemistryProperties;
+}
+
+chemistryType
+{
+    // Use EulerImplicit for strong numerical damping during ignition
+    solver          EulerImplicit;
+    method          chemistryModel;
+}
+
+chemistry       on;
+
+// Keep this small to allow the solver to "feel" the ignition patch
+initialChemicalTimeStep 1e-12; 
+
+EulerImplicitCoeffs
+{
+    cTauChem                1.0;
+    equilibriumRateLimiter  off;
+}
+
+#include "reactions"
+// ************************************************************************* //

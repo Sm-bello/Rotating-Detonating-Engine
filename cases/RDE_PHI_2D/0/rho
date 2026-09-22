@@ -1,0 +1,12 @@
+FoamFile { version 2.0; format ascii; class volScalarField; location "0"; object rho; }
+dimensions      [ 1 -3 0 0 0 0 0 ];
+internalField   uniform 0.851;
+boundaryField
+{
+    inlet           { type    zeroGradient; }
+    outlet          { type    inletOutlet; inletValue uniform 0.851; value uniform 0.851; }
+    periodic_left   { type    cyclic; }
+    periodic_right  { type    cyclic; }
+    front           { type    empty; }
+    back            { type    empty; }
+}

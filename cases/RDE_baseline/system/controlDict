@@ -1,0 +1,41 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+
+application     multicomponentFluid;
+startFrom       latestTime;
+stopAt          endTime;
+endTime         0.0015;        // Reduced a bit
+
+deltaT          1e-8;
+writeControl    runTime;
+writeInterval   5e-5;
+
+adjustTimeStep  yes;
+maxCo           0.35;
+maxDeltaT       5e-7;
+
+purgeWrite      0;
+writeFormat     ascii;
+
+functions
+{
+    wallPressureProbes
+    {
+        type            probes;
+        libs            ("libsampling.so");
+        writeControl    timeStep;
+        writeInterval   50;
+        probeLocations
+        (
+            (0.003125 0.00125 0.0005)
+            (0.009375 0.00125 0.0005)
+            (0.075 0.0125 0.0005)
+        );
+        fields          (p T);
+    }
+}

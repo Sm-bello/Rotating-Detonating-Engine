@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+cd "$(dirname "$0")"
+echo "=== blockMesh ===" && blockMesh | tee log.blockMesh
+echo "=== setFields ===" && setFields | tee log.setFields
+echo "=== checkMesh ===" && checkMesh | tee log.checkMesh
+echo "=== reactingFoam ===" && reactingFoam | tee log.reactingFoam
+echo "Done. Open with: paraFoam -case ."

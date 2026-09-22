@@ -1,0 +1,71 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+
+solvers
+{
+    "rho.*"
+    {
+        solver          diagonal;
+    }
+
+    p
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-08;
+        relTol          0.05;
+    }
+
+    pFinal
+    {
+        $p;
+        tolerance       1e-08;
+        relTol          0;
+    }
+
+    "(U|h|Yi_h|K)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-08;
+        relTol          0.05;
+    }
+
+    "(U|h|Yi_h|K)Final"
+    {
+        $U;
+        tolerance       1e-08;
+        relTol          0;
+    }
+}
+
+PIMPLE
+{
+    momentumPredictor   yes;
+    nOuterCorrectors    5;  // Increased for transient detonation stability
+    nCorrectors         2;
+    nNonOrthogonalCorrectors 0;
+
+    // These relaxations prevent the solver from "undershooting" 
+    // and causing the negative temperatures you observed.
+    relaxationFactors
+    {
+        fields
+        {
+            p               0.7;
+        }
+        equations
+        {
+            U               0.7;
+            h               0.7;
+            Yi_h            0.7;
+            K               0.7;
+        }
+    }
+}

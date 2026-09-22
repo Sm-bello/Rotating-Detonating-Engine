@@ -1,0 +1,13 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      turbulenceProperties;
+}
+
+simulationType  laminar;
+
+// If you ever need to switch to LES or RANS, 
+// this is where you define it. Keep it laminar for now
+// to ensure the wave isn't being "damped" by turbulence models.

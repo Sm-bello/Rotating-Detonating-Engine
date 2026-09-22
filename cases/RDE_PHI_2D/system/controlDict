@@ -1,0 +1,65 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+application         reactingFoam;
+startFrom           startTime;
+startTime           0;
+stopAt              endTime;
+endTime             0.001;
+deltaT              1e-8;
+adjustTimeStep      yes;
+maxCo               0.4;
+maxDeltaT           5e-7;
+writeControl        adjustableRunTime;
+writeInterval       5e-5;
+purgeWrite          0;
+writeFormat         ascii;
+writePrecision      8;
+writeCompression    off;
+timeFormat          general;
+timePrecision       8;
+runTimeModifiable   yes;
+functions
+{
+    fieldExtremes
+    {
+        type            fieldMinMax;
+        libs            (fieldFunctionObjects);
+        fields          (p T);
+        log             yes;
+        writeControl    timeStep;
+        writeInterval   10;
+    }
+    azimuthalProbes
+    {
+        type            probes;
+        libs            (sampling);
+        name            azimuthal;
+        writeControl    timeStep;
+        writeInterval   5;
+        fields          (p T H2 H2O);
+        probeLocations
+        (
+            (0.030 0.075 0.0005)
+            (0.060 0.075 0.0005)
+            (0.090 0.075 0.0005)
+            (0.120 0.075 0.0005)
+            (0.150 0.075 0.0005)
+            (0.180 0.075 0.0005)
+            (0.210 0.075 0.0005)
+            (0.240 0.075 0.0005)
+            (0.270 0.075 0.0005)
+        );
+    }
+    Qdot
+    {
+        type            Qdot;
+        libs            (reactionThermophysicalModels);
+        writeControl    writeTime;
+    }
+}

@@ -1,0 +1,15 @@
+type            probes;
+libs            ("libsampling.so");
+writeControl    timeStep;
+writeInterval   20;
+interpolationScheme cell;
+
+probeLocations
+(
+    (0.003125 0.00125 0.0005)
+    (0.009375 0.00125 0.0005)
+    // ... continue your list here ...
+    (0.075    0.0125  0.0005)
+); // <--- THIS SEMICOLON IS MANDATORY
+
+fields          (p T rho);

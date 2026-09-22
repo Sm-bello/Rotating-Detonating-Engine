@@ -1,0 +1,104 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  11
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+// H2-Air RDE thermophysical data
+// Species: O2, H2, H2O, N2
+// CH4 and CO2 removed — not part of H2 combustion
+
+species
+(
+    O2
+    H2
+    H2O
+    N2
+);
+
+O2
+{
+    specie
+    {
+        molWeight       31.9988;
+    }
+    thermodynamics
+    {
+        Tlow            200;
+        Thigh           5000;
+        Tcommon         1000;
+        highCpCoeffs    ( 3.69758 6.1352e-04 -1.25884e-07 1.77528e-11 -1.13644e-15 -1233.93 3.18917 );
+        lowCpCoeffs     ( 3.21294 1.12749e-03 -5.75615e-07 1.31388e-09 -8.76855e-13 -1005.25 6.03474 );
+    }
+    transport
+    {
+        As              1.753e-6;
+        Ts              139;
+    }
+}
+
+H2
+{
+    specie
+    {
+        molWeight       2.01588;
+    }
+    thermodynamics
+    {
+        Tlow            200;
+        Thigh           5000;
+        Tcommon         1000;
+        highCpCoeffs    ( 2.99142 7.00064e-04 -5.63383e-08 -9.23158e-12 1.58275e-15 -835.034 -1.35511 );
+        lowCpCoeffs     ( 3.29812 8.24944e-04 -8.14302e-07 -9.47543e-11 4.13487e-13 -1012.52 -3.29409 );
+    }
+    transport
+    {
+        As              6.362e-7;
+        Ts              72.0;
+    }
+}
+
+H2O
+{
+    specie
+    {
+        molWeight       18.0153;
+    }
+    thermodynamics
+    {
+        Tlow            200;
+        Thigh           5000;
+        Tcommon         1000;
+        highCpCoeffs    ( 2.67215 3.05629e-03 -8.73026e-07 1.20100e-10 -6.39162e-15 -29899.2 6.86282 );
+        lowCpCoeffs     ( 3.38684 3.47498e-03 -6.35470e-06 6.96858e-09 -2.50659e-12 -30208.1 2.59023 );
+    }
+    transport
+    {
+        As              2.978e-7;
+        Ts              1064;
+    }
+}
+
+N2
+{
+    specie
+    {
+        molWeight       28.0134;
+    }
+    thermodynamics
+    {
+        Tlow            200;
+        Thigh           5000;
+        Tcommon         1000;
+        highCpCoeffs    ( 2.92664 1.48798e-03 -5.68476e-07 1.00970e-10 -6.75335e-15 -922.798 5.98053 );
+        lowCpCoeffs     ( 3.29868 1.40824e-03 -3.96322e-06 5.64152e-09 -2.44486e-12 -1020.9 3.95037 );
+    }
+    transport
+    {
+        As              1.401e-6;
+        Ts              107;
+    }
+}
+
+// ************************************************************************* //

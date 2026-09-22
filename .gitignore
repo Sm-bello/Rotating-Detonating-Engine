@@ -1,0 +1,28 @@
+# Large datasets / models — live on Hugging Face, not Git
+*.npz
+*.npy
+*.pt
+*.pth
+*.h5
+*.hdf5
+rde_full_dataset_72cases.npz
+data/*.csv
+data/*.png
+
+# OpenFOAM runtime output
+**/[1-9]*/
+**/0.*/
+**/processor*/
+**/postProcessing/
+**/*.foam
+**/log.*
+!**/log.blockMesh
+!**/log.checkMesh
+
+# OS / Python
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.venv/
+venv/

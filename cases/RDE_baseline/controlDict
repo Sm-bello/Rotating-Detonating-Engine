@@ -1,0 +1,115 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  11
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solver          multicomponentFluid;
+startFrom       latestTime;
+startTime       0;
+stopAt          endTime;
+endTime         0.002;          // REDUCED: 5ms -> 2ms (3-4 wave cycles, enough for ML)
+deltaT          1e-11;
+writeControl    runTime;
+writeInterval   0.00005;        // REDUCED: more frequent snapshots in shorter window
+purgeWrite      0;
+writeFormat     ascii;
+writePrecision  8;
+writeCompression off;
+timeFormat      general;
+timePrecision   8;
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+maxCo           0.1;
+maxAlphaCo      0.5;
+maxDeltaT       5e-08;
+
+functions
+{
+    wallPressureProbes
+    {
+        type            probes;
+        libs            ("libsampling.so");
+        writeControl    timeStep;
+        writeInterval   20;     // REDUCED: 50 -> 20 (more probe rows per case)
+        interpolationScheme cell;
+
+        probeLocations
+        (
+            // --- GROUP A (P1-P16): Wall/injection-face row, y=0.00125 ---
+            (0.003125  0.00125  0.0005)
+            (0.009375  0.00125  0.0005)
+            (0.015625  0.00125  0.0005)
+            (0.021875  0.00125  0.0005)
+            (0.028125  0.00125  0.0005)
+            (0.034375  0.00125  0.0005)
+            (0.040625  0.00125  0.0005)
+            (0.046875  0.00125  0.0005)
+            (0.053125  0.00125  0.0005)
+            (0.059375  0.00125  0.0005)
+            (0.065625  0.00125  0.0005)
+            (0.071875  0.00125  0.0005)
+            (0.078125  0.00125  0.0005)
+            (0.084375  0.00125  0.0005)
+            (0.090625  0.00125  0.0005)
+            (0.096875  0.00125  0.0005)
+
+            // --- GROUP B (P17-P24): Near-exit row, y=0.025 ---
+            (0.00625   0.025    0.0005)
+            (0.01875   0.025    0.0005)
+            (0.03125   0.025    0.0005)
+            (0.04375   0.025    0.0005)
+            (0.05625   0.025    0.0005)
+            (0.06875   0.025    0.0005)
+            (0.08125   0.025    0.0005)
+            (0.09375   0.025    0.0005)
+
+            // --- GROUP C (P25-P28): Combustor wall temperature probes, y=0.020 ---
+            (0.025     0.020    0.0005)
+            (0.050     0.020    0.0005)
+            (0.075     0.020    0.0005)
+            (0.090     0.020    0.0005)
+
+            // --- GROUP D (P29-P34): Injection zone health, y=0.003 ---
+            (0.00625   0.003    0.0005)
+            (0.01875   0.003    0.0005)
+            (0.03125   0.003    0.0005)
+            (0.05625   0.003    0.0005)
+            (0.07500   0.003    0.0005)
+            (0.09375   0.003    0.0005)
+
+            // --- GROUP E (P35-P38): Exit plane / thrust correlation, y=0.023 ---
+            (0.0125    0.023    0.0005)
+            (0.0375    0.023    0.0005)
+            (0.0625    0.023    0.0005)
+            (0.0875    0.023    0.0005)
+
+            // --- GROUP F (P39-P40): Geometric symmetry, y=0.0125 ---
+            (0.025     0.0125   0.0005)
+            (0.075     0.0125   0.0005)
+        );
+
+        fields          (p T rho);
+    }
+
+    residuals
+    {
+        type            residuals;
+        libs            ("libutilityFunctionObjects.so");
+        writeControl    timeStep;
+        writeInterval   20;
+        fields          (p rho);
+    }
+}
+// ************************************************************************* //

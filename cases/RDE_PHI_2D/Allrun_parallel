@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+cd "$(dirname "$0")"
+NP=4
+echo "=== blockMesh ===" && blockMesh | tee log.blockMesh
+echo "=== setFields ===" && setFields | tee log.setFields
+echo "=== decomposePar ===" && decomposePar | tee log.decomposePar
+echo "=== reactingFoam -parallel ===" && mpirun -np $NP reactingFoam -parallel | tee log.par
+echo "=== reconstructPar ===" && reconstructPar | tee log.reconstructPar
+echo "Done. Open with: paraFoam -case ."

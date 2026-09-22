@@ -1,0 +1,69 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+solvers
+{
+    "(rho|rhoFinal)"
+    {
+        solver          diagonal;
+    }
+    p
+    {
+        solver          GAMG;
+        smoother        DILUGaussSeidel;
+        tolerance       1e-6;
+        relTol          0.01;
+    }
+    pFinal
+    {
+        $p;
+        relTol          0;
+    }
+    "(U|h|e)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-6;
+        relTol          0.1;
+    }
+    "(U|h|e)Final"
+    {
+        $U;
+        relTol          0;
+    }
+    "Yi.*"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-8;
+        relTol          0.01;
+        residualAlpha   1e-8;
+    }
+}
+PIMPLE
+{
+    momentumPredictor   yes;
+    transonic           yes;
+    nOuterCorrectors    2;
+    nCorrectors         2;
+    nNonOrthogonalCorrectors 0;
+}
+relaxationFactors
+{
+    fields
+    {
+        p       0.3;
+        rho     0.05;
+    }
+    equations
+    {
+        U       0.7;
+        h       0.7;
+        Yi      0.5;
+    }
+}
